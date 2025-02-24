@@ -3,7 +3,7 @@ name: Deploy Static Website to Azure Storage
 on:
   push:
     branches:
-      - main  # Runs only when pushing to the main branch
+      - main  # Runs when pushing to the main branch
 
 jobs:
   deploy:
@@ -13,8 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Upload website files to Azure Storage
-        uses: azure/CLI@v1
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          inlineScript: |
-            az storage blob upload-batch -d '$web' --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} --account-key ${{ secrets.AZURE_STORAGE_KEY }} --source .
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload files to Azure Storage
+        run: |
+          az storage blob upload-batch -d '$web' --account-name storage244 --source .
