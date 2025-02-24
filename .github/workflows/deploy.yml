@@ -16,8 +16,10 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # This is your Azure Service Principal credentials
 
       - name: Upload files to Azure Storage
         run: |
+          az storage blob upload-batch -d '$web' --account-name storage244 --source .
+
           az storage blob upload-batch -d '$web' --account-name storage244 --source .
