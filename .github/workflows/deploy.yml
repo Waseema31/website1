@@ -16,7 +16,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # This is your Azure Service Principal credentials
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # This is your Azure Service Principal credentials
 
       - name: Upload files to Azure Storage
         run: |
