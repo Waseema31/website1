@@ -15,7 +15,7 @@ jobs:
 
       - name: Upload Files to Azure Storage
         run: |
-          az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+          az storage blob upload-batch --storage244 ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
             --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
             --source . \
             --destination '$web' \
