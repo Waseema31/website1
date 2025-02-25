@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v1
 
       - name: Upload Files to Azure Storage
         run: |
@@ -20,6 +20,3 @@ jobs:
             --source . \
             --destination '$web' \
             --overwrite
-
-
-          az storage blob upload-batch -d '$web' --account-name storage244 --source .
