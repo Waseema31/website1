@@ -5,35 +5,18 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v1
-
-      - name: Set Up Azure CLI
-        uses: azure/setup-cli@v1
-        with:
-          azcliversion: latest
-
-      - name: Test Azure Storage Authentication
-        run: |
-          az storage account show --name ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Upload Files to Azure Storage
         run: |
-          az storage blob upload-batch \
-            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+          az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
             --account-key ${{ secrets.AZURE_STORAGE_KEY }} \
             --source . \
             --destination '$web' \
             --overwrite
-
-
-          az storage blob upload-batch -d '$web' --account-name storage244 --source .
